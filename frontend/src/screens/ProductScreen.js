@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import products from '../products'
+import axios from 'axios'
+
 
 const ProductScreen = ( {match} ) => {
-    const product = products.find( (p) => p._id === match.params.id);
+    const [product, setProduct] = useState({})
+
+    useEffect(() => {
+        const fetchProduct = async() => {
+            const { data } = await axios.get(`/api/products/${match.params.id}`)
+
+            setProduct(data)
+        }
+
+        fetchProduct()
+    }, [match])
+
     return (
         <>
             <Link className='btn btn-light my-3' to='/'>Go Back</Link>
@@ -32,7 +44,7 @@ const ProductScreen = ( {match} ) => {
                 <Col  md={3}>
                     <Card className='my-3 p-3 rounded'>
                         <ListGroup variant='flush'>
-                            <Row>
+                            <Row className='my-1'>
                                 <Col>Price:</Col>
                                 <Col>
                                     <strong>${product.price}</strong>
@@ -41,7 +53,7 @@ const ProductScreen = ( {match} ) => {
                         </ListGroup>
 
                         <ListGroup variant='flush'>
-                            <Row>
+                            <Row className='my-1'>
                                 <Col>Status:</Col>
                                 <Col>
                                     {product.countInStock > 0 ? 'In Stock' : "Out Of Stock"}
@@ -50,7 +62,7 @@ const ProductScreen = ( {match} ) => {
                         </ListGroup>
 
                         <ListGroup>
-                            <Button className='btn-block my-3' types='button' disable={product.countInStock === 0}>
+                            <Button className='btn-block mt-3' types='button' disabled={product.countInStock === 0}>
                                 Add To Cart
                             </Button>
                         </ListGroup>
