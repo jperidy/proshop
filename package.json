@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/jperidy/proshop#readme",
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "latest": "^0.2.0",
+    "mongoose": "^5.10.9",
     "n": "^6.7.0"
   },
   "devDependencies": {
