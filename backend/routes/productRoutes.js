@@ -9,6 +9,8 @@ const router = express.Router();
 // @access  Public
 router.get('/', asyncHandler(async(req, res) => {
     const products = await Product.find({});
+    // un comment the line for simulate errors
+    //throw new Error('Some error');
     res.json(products);
 }));
 
