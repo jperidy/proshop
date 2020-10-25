@@ -87,7 +87,6 @@ const CartScreen = ({ match, location, history }) => {
                         <Button 
                             type='button' 
                             className='btn-block'
-                            fluid
                             disabled={cartItems.length === 0}
                             onClick={checkOutHandler}
                             >
