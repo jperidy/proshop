@@ -20,6 +20,7 @@ const LoginScreen = ({ location, history }) => {
     useEffect(() => {
         if(userInfo) {
             history.push(redirect);
+            // If user is authenticate, there is no seach and user is redirect to home page
         }
     });
 
