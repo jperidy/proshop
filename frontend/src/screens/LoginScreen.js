@@ -10,6 +10,7 @@ import { login } from '../actions/userActions'
 const LoginScreen = ({ location, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState(null);
 
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin);
@@ -25,14 +26,21 @@ const LoginScreen = ({ location, history }) => {
     });
 
     const submitHandler = (e) => {
-        e.preventDefault(); // to avoid page to refresh
-        // Dispatch Login
-        dispatch(login(email, password));
+        const form = e.currentTarget;
+        // Verification of validity of data
+        if (form.checkValidity() === false) {
+            setMessage('Please check your information');
+        } else {
+            e.preventDefault(); // to avoid page to refresh
+            // Dispatch Login
+            dispatch(login(email, password));
+        }
     };
 
     return (
         <FormContainer>
             <h1>Sign In</h1>
+            {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>

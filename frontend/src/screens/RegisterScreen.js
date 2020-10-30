@@ -26,16 +26,22 @@ const RegisterScreen = ({ location, history }) => {
             history.push(redirect);
             // If user is authenticate, there is no seach and user is redirect to home page
         }
-    });
+    }, [history, userInfo, redirect]);
 
     const submitHandler = (e) => {
-        e.preventDefault(); // to avoid page to refresh
-        // Dispatch Register
-        setMessage(null); // to reinitialize the message before testing
-        if (password !== confirmPassword) {
-            setMessage('Passwords do not match')
+        const form = e.currentTarget;
+        // Verification of validity of data
+        if (form.checkValidity() === false) {
+            setMessage('Please check your information');
         } else {
-            dispatch(register(name, email, password));
+            e.preventDefault(); // to avoid page to refresh
+            // Dispatch Register
+            setMessage(null); // to reinitialize the message before testing
+            if (password !== confirmPassword) {
+                setMessage('Passwords do not match')
+            } else {
+                dispatch(register(name, email, password));
+            }
         }
     };
 
