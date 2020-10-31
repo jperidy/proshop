@@ -14,7 +14,10 @@ const PaymentScreen = ({ history }) => {
         history.push('/shipping');
     }
     
-    const [paymentMethod, setPaymentMethod] = useState('Paypal');
+    const [paymentMethod, setPaymentMethod] = useState(cart.paymentMethod);
+    const [buttonState, setButtonState] = useState(paymentMethod ? false : true); // the button is desabled by default
+
+    //if (paymentMethod){ setButtonState('false') }
 
     const dispatch = useDispatch();
 
@@ -38,8 +41,12 @@ const PaymentScreen = ({ history }) => {
                         id='Paypal' 
                         name='paymentMethod'
                         value='Paypal'
-                        // checked
-                        onChange={(e) => setPaymentMethod(e.target.value)}>
+                        checked={ paymentMethod === 'Paypal' }
+                        onChange={(e) => {
+                            setPaymentMethod(e.target.value);
+                            setButtonState(false);
+                        }
+                        }>
                     </Form.Check>
                     <Form.Check 
                         type='radio' 
@@ -47,11 +54,16 @@ const PaymentScreen = ({ history }) => {
                         id='Stripe' 
                         name='paymentMethod'
                         value='Stripe'
-                        onChange={(e) => setPaymentMethod(e.target.value)}>
+                        checked={ paymentMethod === 'Stripe' }
+                        onChange={(e) => {
+                            setPaymentMethod(e.target.value);
+                            setButtonState(false);
+                        }
+                        }>
                     </Form.Check>
                 </Col>
                 </Form.Group>
-                <Button type='submit' variant='primary'>
+                <Button type='submit' variant='primary' disabled={buttonState}>
                     Continue
                 </Button>
             </Form>

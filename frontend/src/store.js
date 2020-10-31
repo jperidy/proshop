@@ -19,7 +19,7 @@ const reducer = combineReducers({
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
 const userItemsFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : {};
-const paymentFromStorage = localStorage.getItem('paymentFromStorage') ? JSON.parse(localStorage.getItem('paymentFromStorage')) : {};
+const paymentFromStorage = localStorage.getItem('paymentMethod') ? JSON.parse(localStorage.getItem('paymentMethod')) : null;
 
 const initialState = {
     cart: { 
