@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
-import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
+//import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const ProfileScreen = ({ location, history }) => {
     const [name, setName] = useState('');
@@ -39,7 +39,7 @@ const ProfileScreen = ({ location, history }) => {
                 setEmail(user.email);
             }
         }
-    }, [dispatch, history, userInfo, user, messageUpdate]);
+    }, [dispatch, history, userInfo, user]);
 
     const submitHandler = (e) => {
         const form = e.currentTarget;
@@ -56,7 +56,7 @@ const ProfileScreen = ({ location, history }) => {
             } else {
                 dispatch(updateUserProfile({ id:user._id, name, password }));
                 setMessageUpdate('Profile Updated');
-                dispatch(getUserDetails('profile'));
+                //dispatch(getUserDetails('profile'));
             }
         }
     };
