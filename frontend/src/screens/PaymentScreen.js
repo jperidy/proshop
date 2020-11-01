@@ -7,6 +7,9 @@ import { savePaymentMethod } from '../actions/cartActions';
 
 const PaymentScreen = ({ history }) => {
 
+    //const user = useSelector(state => state.userLogin);
+    //const { userInfo } = user;
+
     const cart = useSelector(state => state.cart);
     const { shippingAddress } = cart;
 
@@ -14,6 +17,7 @@ const PaymentScreen = ({ history }) => {
         history.push('/shipping');
     }
     
+    //const [paymentMethod, setPaymentMethod] = useState(cart.paymentMethod.id);
     const [paymentMethod, setPaymentMethod] = useState(cart.paymentMethod);
     const [buttonState, setButtonState] = useState(paymentMethod ? false : true); // the button is desabled by default
 
@@ -43,7 +47,8 @@ const PaymentScreen = ({ history }) => {
                         value='Paypal'
                         checked={ paymentMethod === 'Paypal' }
                         onChange={(e) => {
-                            setPaymentMethod(e.target.value);
+                            //setPaymentMethod(e.target.value);
+                            setPaymentMethod(e.target.value)
                             setButtonState(false);
                         }
                         }>
