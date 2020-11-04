@@ -16,7 +16,7 @@ const OrderScreen = ( { match } ) => {
     const [sdkReady, setSdkReady] = useState(false);
 
     const dispatch = useDispatch();
-     
+    
     const orderDetails = useSelector(state => state.orderDetails);
     const { order, loading, error } = orderDetails;
 
@@ -42,11 +42,11 @@ const OrderScreen = ( { match } ) => {
             script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
             script.async = true ;
             script.onload = () => {
-                console.log("script loaded");
+                //console.log("script loaded");
                 setSdkReady(true);
             };
 
-            console.log(script);
+            //console.log(script);
     
             document.body.appendChild(script);
         };
@@ -64,7 +64,8 @@ const OrderScreen = ( { match } ) => {
     }, [dispatch, orderId, successPay, order, sdkReady]);
 
     const successPaymentHandler = (paymentResult) => {
-        console.log('paymentResult', paymentResult);
+        //console.log('paymentResult', paymentResult);
+        // TODO : make control ont paymentResul status = COMPLETED
         dispatch(payOrder(orderId, paymentResult));
     };
 
