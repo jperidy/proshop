@@ -131,24 +131,24 @@ const ProfileScreen = ({ location, history }) => {
                                 <th>ID</th>
                                 <th>DATE</th>
                                 <th>TOTAL</th>
-                                <th>PAID</th>
-                                <th>DELIVERED</th>
+                                <th className='text-center'>PAID</th>
+                                <th className='text-center'>DELIVERED</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {orders.map(order => (
                                 <tr key={order._id}>
-                                    <td>{order._id}</td>
-                                    <td>{order.createdAt.substring(0,10)}</td>
-                                    <td>{order.totalPrice}</td>
-                                    <td>{order.isPaid ? order.paidAt.substring(0,10) : (
+                                    <td className='align-middle'>{order._id}</td>
+                                    <td className='align-middle'>{order.createdAt.substring(0,10)}</td>
+                                    <td className='align-middle'>{order.totalPrice}</td>
+                                    <td className='text-center align-middle'>{order.isPaid ? order.paidAt.substring(0,10) : (
                                         <i className='far fa-clock' style={{color: 'grey'}}></i>
                                     )}</td>
-                                    <td>{order.isDelivered ? order.deliveredAt.substring(0,10) : (
+                                    <td className='text-center align-middle'>{order.isDelivered ? order.deliveredAt.substring(0,10) : (
                                         <i className='far fa-clock' style={{color: 'grey'}}></i>
                                     )}</td>
-                                    <td>
+                                    <td className='align-middle'>
                                         <LinkContainer to={`/order/${order._id}`}>
                                             <Button variant='light' className='btn-sm'>Details</Button>
                                         </LinkContainer>
