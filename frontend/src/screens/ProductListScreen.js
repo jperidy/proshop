@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from 'react-redux'; 
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listProducts } from '../actions/productActions';
+import { listProducts, deleteProduct } from '../actions/productActions';
 
 const ProductListScreen = ({ history, match }) => {
     
@@ -13,6 +13,9 @@ const ProductListScreen = ({ history, match }) => {
 
     const productList = useSelector(state => state.productList);
     const { loading, error, products } = productList;
+
+    const productDelete = useSelector(state => state.productDelete);
+    const { loading:loadingDelete, error:errorDelete, success:successDelete } = productDelete;
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
@@ -24,11 +27,11 @@ const ProductListScreen = ({ history, match }) => {
         } else {
             history.push('/login');
         }
-    }, [dispatch, history, userInfo]);
+    }, [dispatch, history, userInfo, successDelete]);
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure ?')){
-            // Delete Product
+            dispatch(deleteProduct(id));
         }
     };
 
@@ -49,6 +52,9 @@ const ProductListScreen = ({ history, match }) => {
                 </Col>
             </Row>
 
+            {loadingDelete && <Loader />}
+            {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <Table striped bordered hover responsive className='table-sm'>
                     <thead>
@@ -64,11 +70,11 @@ const ProductListScreen = ({ history, match }) => {
                     <tbody>
                         {products.map(product => (
                             <tr key={product._id}>
-                                <td classname='align-middle'>{product._id}</td>
-                                <td classname='align-middle'>{product.name}</td>
-                                <td classname='align-middle'>${product.price}</td>
+                                <td className='align-middle'>{product._id}</td>
+                                <td className='align-middle'>{product.name}</td>
+                                <td className='align-middle'>${product.price}</td>
                                 <td className='align-middle'>{product.category}</td>
-                                <td classname='align-middle'>{product.brand}</td>
+                                <td className='align-middle'>{product.brand}</td>
                                 <td className='text-center align-middle'>
                                     <LinkContainer to={`/admin/product/${product._id}/edit`}>
                                         <Button variant='light' className='btn-sm'>
