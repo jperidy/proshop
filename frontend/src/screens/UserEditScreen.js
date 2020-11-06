@@ -43,7 +43,7 @@ const UserEditScreen = ({ match, history }) => {
     }, [dispatch, history, userId, user, successUpdate]);
 
     const submitHandler = (e) => {
-        console.log('isAdmin', isAdmin);
+        //console.log('isAdmin', isAdmin);
         e.preventDefault(); // to avoid page to refresh
         dispatch(updateUser({ _id: userId, name, email, isAdmin }));
         
