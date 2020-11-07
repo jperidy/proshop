@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
-import { listProductDetails } from '../actions/productActions';
+import { listProductDetails, updateProduct } from '../actions/productActions';
+import { PRODUCT_DETAILS_RESET, PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 
 const ProductEditScreen = ({ match, history }) => {
 
@@ -24,10 +25,16 @@ const ProductEditScreen = ({ match, history }) => {
     const productDetails = useSelector(state => state.productDetails);
     const { loading, error, product } = productDetails;
 
+    const productUpdate = useSelector(state => state.productUpdate);
+    const { loading:loadingUpdate, error:errorUpdate, success:successUpdate } = productUpdate;
+
     useEffect(() => {
 
-            console.log('productId', productId);
-
+        if (successUpdate) {
+            dispatch({ type: PRODUCT_UPDATE_RESET });
+            dispatch({ type: PRODUCT_DETAILS_RESET });
+            history.push('/admin/productlist');
+        } else {
             if(!product.name || product._id !== productId){
                 dispatch(listProductDetails(productId));
             } else {
@@ -39,12 +46,21 @@ const ProductEditScreen = ({ match, history }) => {
                 setCountInStock(product.countInStock);
                 setDescription(product.description);
             }
-
-    }, [dispatch, history, productId, product]);
+        }
+    }, [dispatch, history, productId, product, successUpdate]);
 
     const submitHandler = (e) => {
         e.preventDefault(); // to avoid page to refresh
-        // UPDATE PRODUCT
+        dispatch(updateProduct({
+            _id: productId,
+            name,
+            price,
+            image,
+            brand,
+            category,
+            description,
+            countInStock
+        }));
         
     };
 
@@ -56,6 +72,8 @@ const ProductEditScreen = ({ match, history }) => {
 
             <FormContainer>
                 <h1>Edit Product</h1>
+                {loadingUpdate && <Loader />}
+                {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                     <Form onSubmit={submitHandler}>
                         <Form.Group controlId='name'>
@@ -128,7 +146,7 @@ const ProductEditScreen = ({ match, history }) => {
                             ></Form.Control>
                         </Form.Group>
 
-                        <Button type='submit' variat='primary'>
+                        <Button type='submit' variant='primary'>
                             Update
                         </Button>
                     </Form>
