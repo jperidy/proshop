@@ -13,6 +13,7 @@ const Header = () => {
 
     const logoutHandler = () => {
         dispatch(logout());
+        //history.push('/login');
     };
 
     return (
@@ -34,8 +35,11 @@ const Header = () => {
                                     <LinkContainer to='/profile'>
                                         <NavDropdown.Item>Profile</NavDropdown.Item>
                                     </LinkContainer>
-                                    <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                                    <LinkContainer to='/login'>
+                                        <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                                    </LinkContainer>
                                 </NavDropdown>
+
                             ) : (<LinkContainer to = '/login'>
                                     <Nav.Link><i className='fas fa-user'></i>Sign In</Nav.Link>
                                 </LinkContainer>)
