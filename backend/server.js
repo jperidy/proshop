@@ -30,6 +30,7 @@ app.use('/api/upload', uploadRoutes);
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
 
 const __dirname = path.resolve(); // not mandatory
+app.use('/uploads', express.static(path.join(__dirname, '/uploads'))); // to create static folder to be accessible by all
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '/frontend/build')));
@@ -40,7 +41,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.use('/uploads', express.static(path.join(__dirname, '/uploads'))); // to create static folder to be accessible by all
 
 app.use(notFound);
 app.use(errorHandler);
