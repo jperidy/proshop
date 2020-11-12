@@ -33,30 +33,30 @@ const OrderListScreen = ({ history }) => {
              <Table striped bordered hover responsive className='table-sm'>
                  <thead>
                      <tr>
-                         <th>ID</th>
-                         <th>USER</th>
-                         <th>DATE</th>
-                         <th>TOTAL</th>
-                         <th>PAID</th>
-                         <th>DELIVERED</th>
+                         <th className='align-middle'>ID</th>
+                         <th className='align-middle'>USER</th>
+                         <th className='align-middle'>DATE</th>
+                         <th className='align-middle'>TOTAL</th>
+                         <th className='align-middle text-center'>PAID</th>
+                         <th className='align-middle text-center'>DELIVERED</th>
                          <th></th>
                      </tr>
                  </thead>
                  <tbody>
                      {orders.map(order => (
                          <tr key={order._id}>
-                             <td classname='align-middle'>{order._id}</td>
-                             <td classname='align-middle'>{order.user && order.user.name}</td>
-                             <td classname='align-middle'>{order.createdAt.substring(0,10)}</td>
-                             <td classname='align-middle'>{order.totalPrice}</td>
-                             <td className='align-middle'>
+                             <td className='align-middle'>{order._id}</td>
+                             <td className='align-middle'>{order.user && order.user.name}</td>
+                             <td className='align-middle'>{order.createdAt.substring(0,10)}</td>
+                             <td className='align-middle'>${order.totalPrice}</td>
+                             <td className='align-middle text-center'>
                                  {order.isPaid ? (
                                     order.paidAt.substring(0,10)
                                     ) : (
                                         <i className='fas fa-times' style={{ color: 'red' }}></i>
                                     ) }
                             </td>
-                            <td className='align-middle'>
+                            <td className='align-middle text-center'>
                                  {order.isDelivered ? (
                                     order.deliveredAt.substring(0,10)
                                     ) : (

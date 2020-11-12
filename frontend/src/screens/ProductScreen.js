@@ -66,10 +66,10 @@ const ProductScreen = ( {history, match} ) => {
                                     <h3>{product.name}</h3>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                                    <Rating value={product.rating ? product.rating : 0} text={`${product.numReviews} reviews`} />
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    Price: {product.price}
+                                    Price: ${product.price}
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     Description: {product.description}
@@ -137,7 +137,7 @@ const ProductScreen = ( {history, match} ) => {
                                 {product.reviews.map( review => (
                                     <ListGroup.Item key={review._id}>
                                         <strong>{review.name}</strong>
-                                        <Rating value={review.rating} />
+                                        <Rating value={review.rating ? review.rating : 0} text='' />
                                         <p>{review.createdAt.substring(0,10)}</p>
                                         <p>{review.comment}</p>
                                     </ListGroup.Item>
@@ -147,7 +147,7 @@ const ProductScreen = ( {history, match} ) => {
                                     {errorProductReview && <Message variant='danger'>{errorProductReview}</Message>}
                                     {userInfo ? (
                                         <Form onSubmit={submitHandler}>
-                                            <Form.Group controlID='rating'>
+                                            <Form.Group controlId='rating'>
                                                 <Form.Label>Rating</Form.Label>
                                                 <Form.Control 
                                                     as='select' 
@@ -162,7 +162,7 @@ const ProductScreen = ( {history, match} ) => {
                                                 </Form.Control>
 
                                             </Form.Group>
-                                            <Form.Group controlID='comment'>
+                                            <Form.Group controlId='comment'>
                                                 <Form.Label>Comment</Form.Label>
                                                 <Form.Control 
                                                     as='textarea'

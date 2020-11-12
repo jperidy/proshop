@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
+import Product from '../models/productModel.js';
 
 // @desc    Create New Order
 // @route   POST /api/orders
@@ -21,21 +22,50 @@ const addOrderItems = asyncHandler(async(req,res) =>{
         throw new Error('No order items');
         return
     } else {
-        const order = new Order({
-            orderItems,
-            user: req.user._id, // user ID from token
-            shippingAddress,
-            paymentMethod,
-            itemsPrice,
-            taxPrice,
-            shippingPrice,
-            totalPrice,
-        });
+        try {
+            
+            //console.log('orderItems', orderItems);
+            //console.log(orderItems[0]);
+            //console.log(orderItems.length);
 
-        const createdOrder = await order.save();
-        
-        res.status(201).json(createdOrder);
+            let item = ''
 
+            for (let i=0 ; i<orderItems.length ; i++) {
+                
+                item = orderItems[i];
+                const product = await Product.findById(item.product);
+
+                /*console.log('item', item);
+                console.log('countInStock', product.countInStock);
+                console.log('qty', item.qty);
+                console.log('product', product);
+                console.log(typeof product.countInStock, typeof product.qty, typeof (product.countInStock - product.qty));*/
+
+                if(product.countInStock >= item.qty) {
+                    product.countInStock = product.countInStock - item.qty;
+                    //console.log('product', product);
+                    product.save();
+                } else {
+                    throw new Error(`Problem : product out of stock: ${item.name} quantity max available: ${item.countInStock}`);
+                }
+            }
+
+            const order = new Order({
+                orderItems,
+                user: req.user._id, // user ID from token
+                shippingAddress,
+                paymentMethod,
+                itemsPrice,
+                taxPrice,
+                shippingPrice,
+                totalPrice,
+            });
+            const createdOrder = await order.save();
+            res.status(201).json(createdOrder);
+
+        } catch (error) {
+            res.status(500).json({ error })
+        }
     }
 });
 

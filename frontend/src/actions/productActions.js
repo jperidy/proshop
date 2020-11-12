@@ -128,7 +128,6 @@ export const createProduct = () => async(dispatch, getState) => {
 
 export const updateProduct = (product) => async(dispatch, getState) => {
 
-    //console.log('start update product');
     try {
 
         dispatch({
@@ -164,7 +163,6 @@ export const updateProduct = (product) => async(dispatch, getState) => {
 
 export const createProductReview = (productId, review) => async(dispatch, getState) => {
 
-    //console.log('start update product');
     try {
 
         dispatch({

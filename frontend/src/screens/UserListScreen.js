@@ -51,9 +51,9 @@ const UserListScreen = ({ history }) => {
                  <tbody>
                      {users.map(user => (
                          <tr key={user._id}>
-                             <td classname='align-middle'>{user._id}</td>
-                             <td classname='align-middle'>{user.name}</td>
-                             <td classname='align-middle'><a href={`mailto:${user.email}`}>{user.email}</a></td>
+                             <td className='align-middle'>{user._id}</td>
+                             <td className='align-middle'>{user.name}</td>
+                             <td className='align-middle'><a href={`mailto:${user.email}`}>{user.email}</a></td>
                              <td className='text-center align-middle'>
                                  {user.isAdmin ? (
                                     <i className='fas fa-check' style={{ color: 'green' }}></i>) : (
