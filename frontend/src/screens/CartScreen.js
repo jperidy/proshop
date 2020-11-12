@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row, ListGroup, Image, Form, Button, Card} from 'react-bootstrap';
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../actions/cartActions';
+import { ORDER_CREATE_RESET }from '../constants/orderConstants';
 
 const CartScreen = ({ match, location, history }) => {
     
@@ -27,6 +28,8 @@ const CartScreen = ({ match, location, history }) => {
     };
 
     const checkOutHandler = () => {
+         //start of new order process
+        dispatch({ type: ORDER_CREATE_RESET });
         history.push('/login?redirect=shipping');
     };
 
