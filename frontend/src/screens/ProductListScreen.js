@@ -82,6 +82,7 @@ const ProductListScreen = ({ history, match }) => {
                                 <th>PRICE</th>
                                 <th>CATEGORY</th>
                                 <th>BRAND</th>
+                                <th>STOCK</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -93,6 +94,7 @@ const ProductListScreen = ({ history, match }) => {
                                     <td className='align-middle'>${product.price}</td>
                                     <td className='align-middle'>{product.category}</td>
                                     <td className='align-middle'>{product.brand}</td>
+                                    <td className='align-middle text-center'>{product.countInStock}</td>
                                     <td className='text-center align-middle'>
                                         <LinkContainer to={`/admin/product/${product._id}/edit`}>
                                             <Button variant='light' className='btn-sm'>

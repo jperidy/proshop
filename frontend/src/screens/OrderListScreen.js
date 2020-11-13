@@ -4,7 +4,8 @@ import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'; 
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listOrders } from '../actions/orderActions';
+import { deleteOrder, listOrders } from '../actions/orderActions';
+import { ORDER_DETAILS_RESET } from '../constants/orderConstants';
 
 const OrderListScreen = ({ history }) => {
     
@@ -16,6 +17,10 @@ const OrderListScreen = ({ history }) => {
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
 
+    const orderDelete = useSelector(state => state.orderDelete);
+    const { success:successOrderDelete } = orderDelete;
+
+    dispatch({ type: ORDER_DETAILS_RESET});
 
     useEffect(() => {
 
@@ -24,7 +29,13 @@ const OrderListScreen = ({ history }) => {
         } else {
             history.push('/login');
         }
-    }, [dispatch, history, userInfo]);
+    }, [dispatch, history, userInfo, successOrderDelete]);
+
+    const deleteHandler = (id) => {
+        if(window.confirm(`Are you sure to delete order ID: ${id} ?`)){
+            dispatch(deleteOrder(id));
+        }
+    };
 
     return (
         <>
@@ -39,6 +50,7 @@ const OrderListScreen = ({ history }) => {
                          <th className='align-middle'>TOTAL</th>
                          <th className='align-middle text-center'>PAID</th>
                          <th className='align-middle text-center'>DELIVERED</th>
+                         <th></th>
                          <th></th>
                      </tr>
                  </thead>
@@ -69,8 +81,17 @@ const OrderListScreen = ({ history }) => {
                                         <Button variant='light' className='btn-sm'>
                                             Details
                                         </Button>
-                                </LinkContainer>
-                                
+                                </LinkContainer>  
+                            </td>
+
+                             <td className='text-center align-middle'>
+                                 <Button 
+                                    variant='danger' 
+                                    className='btn-sm' 
+                                    onClick={() => deleteHandler(order._id)}
+                                    disabled={order.isPaid ? true : false}
+                                ><i className='fas fa-trash'></i>
+                                 </Button>
                             </td>
                          </tr>
                      ))}

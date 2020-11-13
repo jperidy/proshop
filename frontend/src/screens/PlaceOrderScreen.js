@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import CheckOutSteps from '../components/CheckOutSteps';
 import { createOrder } from '../actions/orderActions';
+import { ORDER_DETAILS_RESET } from '../constants/orderConstants';
 
 const PlaceOrderScreen = ( { history }) => {
 
@@ -24,6 +25,8 @@ const PlaceOrderScreen = ( { history }) => {
 
     const orderCreate = useSelector( state => state.orderCreate );
     const { order, success, error } = orderCreate;
+
+    dispatch({ type: ORDER_DETAILS_RESET });
 
     useEffect(() => {
         if (success) {
