@@ -6,16 +6,16 @@ const sendAnEmail = (user) => {
     var transporter = nodemailer.createTransport({
         service: process.env.EMAIL_SERVICE,
         auth: {
-          user: process.env.EMAIL_ACCOUNT,
-          pass: process.env.EMAIL_PSW
+            user: process.env.EMAIL_ACCOUNT,
+            pass: process.env.EMAIL_PSW
         }
     });
 
     var mailGenerator = new Mailgen({
         theme: "default",
         product: {
-          name: "proshop",
-          link: "proshop.com",
+            name: "proshop",
+            link: "proshop.com",
         },
     });
 
@@ -37,14 +37,15 @@ const sendAnEmail = (user) => {
         text: mailText,
         html: mail
     };
-    
+
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
         }
-      }); 
+    });
+
 };
 
 export default sendAnEmail;

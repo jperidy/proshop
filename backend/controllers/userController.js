@@ -44,7 +44,12 @@ const registerUser = asyncHandler(async(req,res) =>{
         password
     });
 
-    if(user){
+    if (user) {
+        try {
+            sendAnEmail(user);
+        } catch (error) {
+            res.status(500).send({ message: error });
+        }
         res.status(201).json({
             _id: user._id,
             name: user.name,
@@ -52,12 +57,10 @@ const registerUser = asyncHandler(async(req,res) =>{
             isAdmin: user.isAdmin,
             token: generateToken(user._id)
         });
-        sendAnEmail(user);
     } else {
         res.status(400);
         throw new Error('Invalid user data');
     }
-
 });
 
 // @desc    get user profile
