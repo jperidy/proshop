@@ -1,7 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
-import Rating from './Rating'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import Rating from './Rating';
+import PropTypes from 'prop-types';
 
 const Product = ({product}) => {
     return (
@@ -24,6 +25,10 @@ const Product = ({product}) => {
             </Card.Body>
         </Card>
     )
-}
+};
+
+Product.propTypes = {
+    product: PropTypes.object.isRequired
+};
 
 export default Product;

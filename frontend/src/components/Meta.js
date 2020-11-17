@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Meta = ({ title, description, keywords }) => {
     return (
@@ -16,5 +17,11 @@ Meta.defaultProps = {
     description: 'We sell best products for cheap',
     keywords: 'electronics, buy electronics, cheap electronics'
 }
+
+Meta.propTypes = {
+    title: PropTypes.string,
+    description: PropTypes.string,
+    keyword: PropTypes.string,
+};
 
 export default Meta;

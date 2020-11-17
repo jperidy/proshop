@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import PropTypes from 'prop-types';
 
 const CheckOutSteps = ({ step1, step2, step3, step4 }) => {
     return (
@@ -46,6 +47,13 @@ const CheckOutSteps = ({ step1, step2, step3, step4 }) => {
             </Nav.Item>
         </Nav>
     );
+}
+
+CheckOutSteps.propTypes = {
+    step1: PropTypes.number,
+    step2: PropTypes.number,
+    step3: PropTypes.number,
+    step4: PropTypes.number
 }
 
 export default CheckOutSteps;

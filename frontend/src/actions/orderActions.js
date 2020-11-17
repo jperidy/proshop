@@ -168,7 +168,7 @@ export const listMyOrders = () => async(dispatch, getState) => {
     }
 };
 
-export const listOrders = () => async(dispatch, getState) => {
+export const listOrders = (keywordId='', keywordUser='') => async(dispatch, getState) => {
     try {
 
         dispatch({
@@ -184,7 +184,7 @@ export const listOrders = () => async(dispatch, getState) => {
         };
 
         // data contains all shared user informations
-        const { data } = await axios.get(`/api/orders`, config);
+        const { data } = await axios.get(`/api/orders?keywordId=${keywordId}&keywordUser=${keywordUser}`, config);
 
         dispatch({
             type: ORDER_LIST_SUCCESS,

@@ -12,9 +12,6 @@ node_modules
 # production
 /frontend/build
 
-# Uploads
-/uploads
-
 # misc
 .DS_Store
 .env

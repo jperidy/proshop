@@ -7,7 +7,7 @@ import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdatePr
 import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyReducer, orderListReducer, orderDeliverReducer, orderDeleteReducer } from './reducers/orderReducers'
 
 // la fonction combineReducers, permet d'englober tous les reducers dans un reducer root.
-const reducer = combineReducers({
+export const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
     productDelete: productDeleteReducer,

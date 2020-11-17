@@ -131,13 +131,45 @@ const getMyOrders = asyncHandler(async(req,res) =>{
  
 });
 
+const filterOrders = (order, conditions) => {
+    const { keywordId, keywordUser } = conditions;
+    
+    var idMatch = true; // by default we want to display
+    var userMatch = true; // by default we want to display
+    
+    if (keywordId){
+        idMatch = order._id.toString().toLowerCase().match(keywordId.toLowerCase()) !== null;
+    }
+    if (keywordUser) {
+        userMatch = order.user.name.toLowerCase().match(keywordUser.toLowerCase()) !== null
+    }
+    console.log('resultFilter', idMatch && userMatch)
+
+    return idMatch && userMatch;
+
+};
+
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async(req,res) =>{
-    
+
+    const keywordId = req.query.keywordId && req.query.keywordId;
+    const keywordUser = req.query.keywordUser && req.query.keywordUser;
+    const conditions = {keywordId, keywordUser};
+
     const orders = await Order.find({}).populate('user', 'id name');
-    res.json(orders);
+
+    var results = [];
+
+    if (keywordId || keywordUser){
+        results = orders.filter( order => filterOrders(order, conditions));
+    } else {
+        results = orders;
+    }
+    console.log(results);
+
+    res.json(results);
  
 });
 
